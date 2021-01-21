@@ -1,7 +1,7 @@
 // We need to work around Step numbers here if we are going to potentially exclude the AMI subscription
-=== Sign in to your AWS account
+=== Sign in to your AWS Management account
 
-. Sign in to your AWS account at https://aws.amazon.com with an IAM user role that has the necessary permissions. For details, see link:#_planning_the_deployment[Planning the deployment] earlier in this guide.
+. Sign in to your AWS Management account at https://aws.amazon.com with an IAM user role that has the necessary permissions. For details, see link:#_planning_the_deployment[Planning the deployment] earlier in this guide.
 . Make sure that your AWS account is configured correctly, as discussed in the link:#_technical_requirements[Technical requirements] section.
 
 // Optional based on Marketplace listing. Not to be edited
