@@ -25,6 +25,8 @@ This Quick Start is intended to be installed into an empty, freshly created AWS 
 
 Each deployment takes about {deployment_time} to complete.
 
+TIP: As soon as step 7 has started, a living documentation will be deployed. Please go to link:https://console.aws.amazon.com/cloudwatch/home#dashboards:name=superwerker[the living documentation], and follow the instructions to finish the deployment.
+
 . Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see link:#_deployment_options[Deployment options] earlier in this guide.
 
 [cols="3,1"]
