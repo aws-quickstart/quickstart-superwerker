@@ -3,5 +3,5 @@
 |Resource |This deployment uses
 
 // Space needed to maintain table headers
-|No resource limit adjustedments needed. |
+|No resource limit adjustments needed. |
 |===
