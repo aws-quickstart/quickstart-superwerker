@@ -2,12 +2,10 @@
 
 ==== Prepare your AWS account
 
-You need to signed in as an administrator (IAM User or Role with `AdministratorAccess` policy attached, or the AWS root user) into an AWS Account. This account must not be a member of an AWS Organization.
+You need to be signed in as an administrator (IAM User or Role with `AdministratorAccess` policy attached, or the AWS root user) into an AWS Account. This account must not be a member of an AWS Organization.
 
 ==== Prepare for the deployment
 
-The superwerker quickstart works best with a dedicated DNS subdomain so it can handle email inboxes of created AWS sub-accounts securely.
+The superwerker quickstart works best with a dedicated DNS subdomain, so it can handle email inboxes of created AWS sub-accounts securely.
 
-If you enable the "Enable automated AWS Account root mail handling" feature, you will be asked to provide a domain and subdomain for a DNS zone which superwerker creates, for example `aws.yourcompany.com`. You can choose those freely. The installation will provide you with `NS` entries for the DNS zone. You have to create an `NS` entry within your DNS provider so that the DNS zone is delegated. The superwerker installation will wait until the delegation is properly configured.
-
-Otherwise you'll have to disable the "Enable automated AWS Account root mail handling" feature at installation time, and provide email addresses for the Audit and Log archive accounts for Control Tower
+You will be asked to provide a domain (e.g. `mycompany.com`) and subdomain (e.g. `aws`) for a DNS zone which superwerker creates. You can choose those freely. The installation will provide you with `NS` entries for this newly created DNS zone. You have to create an `NS` entry within your DNS provider so that the DNS zone is delegated (these records will be made available at a later point in the so called "living documentation"). The superwerker installation will wait until the delegation is properly configured.
