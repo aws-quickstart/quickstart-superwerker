@@ -2,12 +2,10 @@
 
 ==== Prepare your AWS account
 
-_Describe any setup required in the AWS account prior to template launch_
-
-==== Prepare your {partner-company-name} account
-
-_Describe any setup required in the partner portal/account prior to template launch_
+You need to be signed in as an administrator (IAM User or Role with `AdministratorAccess` policy attached, or the AWS root user) into an AWS Account. This account must not be a member of an AWS Organization.
 
 ==== Prepare for the deployment
 
-_Describe any preparation required to complete the product build, such as obtaining licenses or placing files in S3_
+The superwerker quickstart works best with a dedicated DNS subdomain, so it can handle email inboxes of created AWS sub-accounts securely.
+
+You will be asked to provide a domain (e.g. `mycompany.com`) and subdomain (e.g. `aws`) for a DNS zone which superwerker creates. You can choose those freely. The installation will provide you with `NS` entries for this newly created DNS zone. You have to create an `NS` entry within your DNS provider so that the DNS zone is delegated (these records will be made available at a later point in the so called "living documentation"). The superwerker installation will wait until the delegation is properly configured.
