@@ -1,15 +1,15 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-Description: Automated Best-Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
+Description: Automated Best Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
 
 Parameters:
   Domain:
     Type: String
-    Description: Domain used for Rootmail feature
+    Description: Domain used for RootMail feature
   Subdomain:
     Type: String
     Default: aws
-    Description: Sub domain used for Rootmail feature
+    Description: Sub domain used for RootMail feature
   IncludeBudget:
     AllowedValues:
       - 'Yes'
@@ -48,8 +48,10 @@ Parameters:
     Type: String
   TemplateUrlPrefix:
     Type: String
+    Default: https://superwerker-deployment.s3.amazonaws.com/0.0.0-DEVELOPMENT
 
 Metadata:
+  SuperwerkerVersion: 0.0.0-DEVELOPMENT
   QuickStartDocumentation:
     EntrypointName: "Launch superwerker - the open-source solution to automate the setup of an AWS Cloud environment with prescriptive best practices"
     Order: "1"
