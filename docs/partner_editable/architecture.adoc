@@ -24,4 +24,4 @@ As shown in <<architecture1>>, the Quick Start automates the configuration of th
 The following image provides additional details about the AWS architecture that is deployed using {partner-product-short-name}.
 [#architecture2]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/architecture_diagram.png[Architecture,width=100%,height=100%]
+image::../images/partnerprovided_architecture-overview.png[Architecture,width=100%,height=100%]
