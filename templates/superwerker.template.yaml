@@ -1,6 +1,55 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Description: Automated Best-Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
+Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch superwerker"
+    Order: "1"
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: Features
+      Parameters:
+      - IncludeBudget
+      - IncludeControlTower
+      - IncludeGuardDuty
+      - IncludeSecurityHub
+      - IncludeBackup
+      - IncludeServiceControlPolicies
+    - Label:
+        default: Domain configuration
+      Parameters:
+      - Domain
+      - Subdomain
+    - Label:
+        default: AWS Quick Start configuration
+      Parameters:
+      - QSS3BucketName
+      - QSS3KeyPrefix
+      - QSS3BucketRegion
+    ParameterLabels:
+      Domain:
+        default: Domain for automated DNS configuration
+      IncludeBudget:
+        default: Include Budget Alarm
+      IncludeControlTower:
+        default: Include AWS Control Tower
+      IncludeGuardDuty:
+        default: Include Amazon GuardDuty
+      IncludeSecurityHub:
+        default: Include AWS Security Hub
+      IncludeBackup:
+        default: Include Automated Backups
+      IncludeServiceControlPolicies:
+        default: Include Service Control Policies
+      QSS3BucketName:
+        default: Quick Start S3 Bucket Name
+      QSS3BucketRegion:
+        default: Quick Start S3 Bucket Region
+      QSS3KeyPrefix:
+        default: Quick Start S3 Key Prefix
+      Subdomain:
+        default: Subdomain for automated DNS configuration
 
 Parameters:
   Domain:
@@ -16,36 +65,42 @@ Parameters:
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable Budget Alarm for monthly AWS spending
   IncludeControlTower:
     AllowedValues:
       - 'Yes'
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable AWS Control Tower
   IncludeGuardDuty:
     AllowedValues:
       - 'Yes'
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable Amazon GuardDuty
   IncludeSecurityHub:
     AllowedValues:
       - 'Yes'
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable AWS Security Hub
   IncludeBackup:
     AllowedValues:
       - 'Yes'
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable Automated Backups
   IncludeServiceControlPolicies:
     AllowedValues:
       - 'Yes'
       - 'No'
     Default: 'Yes'
     Type: String
+    Description: Enable Service Control Policies in AWS Organizations
   QSS3BucketName:
     AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase letters, uppercase
@@ -70,56 +125,6 @@ Parameters:
       (.) and forward slash (/) and it should end with a forward slash (/).
     Type: String
 
-Metadata:
-  QuickStartDocumentation:
-    EntrypointName: "Launch superwerker - the open-source solution to automate the setup of an AWS Cloud environment with prescriptive best practices"
-    Order: "1"
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-    - Label:
-        default: Features
-      Parameters:
-      - IncludeBudget
-      - IncludeControlTower
-      - IncludeGuardDuty
-      - IncludeSecurityHub
-      - IncludeBackup
-      - IncludeServiceControlPolicies
-    - Label:
-        default: Domain Configuration
-      Parameters:
-      - Domain
-      - Subdomain
-    - Label:
-        default: AWS Quick Start configuration
-      Parameters:
-      - QSS3BucketName
-      - QSS3KeyPrefix
-      - QSS3BucketRegion
-    ParameterLabels:
-      Domain:
-        default: Domain for automated DNS configuration
-      Subdomain:
-        default: Subdomain for automated DNS configuration
-      QSS3BucketName:
-        default: Quick Start S3 Bucket Name
-      QSS3BucketRegion:
-        default: Quick Start S3 Bucket Region
-      QSS3KeyPrefix:
-        default: Quick Start S3 Key Prefix
-      IncludeBudget:
-        default: Enable Budget Alarm for monthly AWS spendings
-      IncludeControlTower:
-        default: Enable AWS Control Tower
-      IncludeGuardDuty:
-        default: Enable Amazon GuardDuty
-      IncludeSecurityHub:
-        default: Enable AWS Security Hub
-      IncludeBackup:
-        default: Enable Automated Backups
-      IncludeServiceControlPolicies:
-        default: Enable Service Control Policies in AWS Organizations
-
 Conditions:
   UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
   IncludeBudget: !Equals [ !Ref IncludeBudget, 'Yes' ]
@@ -138,7 +143,6 @@ Conditions:
     - !Equals [ !Ref IncludeServiceControlPolicies, 'Yes' ]
 
 Resources:
-
   Budget:
     Condition: IncludeBudget
     Type: AWS::CloudFormation::Stack
@@ -303,7 +307,6 @@ Resources:
           - false
 
 Outputs:
-
   RootMailDelegationTarget:
     Description: Nameservers for the hosted zone delegation
     Value: !GetAtt RootMail.Outputs.DelegationTarget
