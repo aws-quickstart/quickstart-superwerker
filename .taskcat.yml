@@ -1,0 +1,7 @@
+project:
+  name: quickstart-superwerker
+  owner: quickstart@amazon.com
+  package_lambda: false
+  regions:
+  - eu-central-1
+  s3_bucket: ''
