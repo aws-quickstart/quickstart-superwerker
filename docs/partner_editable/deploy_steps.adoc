@@ -29,7 +29,7 @@ TIP: In the following steps, after you deploy the stack, refer to the documentat
 
 . Sign in to your AWS account, and choose the following option to launch the AWS CloudFormation template. For more deployment details, see link:#_deployment_options[Deployment options] earlier in this guide.
 
-[cols="3,1"]
+[cols=2*]
 |===
 ^|https://fwd.aws/Ag3x4[Deploy {partner-product-short-name}^]
 ^|https://fwd.aws/ye4Rk[View template^]
