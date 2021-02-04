@@ -1,14 +1,12 @@
-# superwerker - automated best practises for AWS
+# superwerker - automated best practices for AWS
 
-> The superwerker open source solution automates the setup of an AWS Cloud environment with prescriptive best practises. It enables startups and SMBs to focus on their core business - by saving setup and maintenance time and money.
+> The superwerker open source solution by **AWS Advanced Partners** [kreuzwerker](https://kreuzwerker.de/) and [superluminar](https://superluminar.io/) automates the setup of an AWS Cloud environment with prescriptive best practices. It enables startups and SMBs to focus on their core business - by saving setup and maintenance time and money.
 
-**superwerker** is brought to you by AWS Advanced Partners [kreuzwerker](https://kreuzwerker.de/) and [superluminar](https://superluminar.io/).
+![superwerker](/docs/images/splash.jpg)
 
 ## Project state / Roadmap
 
-This project is currently under heavy development. We are working towards [1.0 milestone](https://github.com/superwerker/superwerker/milestone/1).
-
-There is a [Long term roadmap and list of ideas](https://github.com/superwerker/superwerker/projects/1) as well. Feel free to comment and add ideas.
+This project is currently under heavy development. We are currently completing the [1.0 milestone](https://github.com/superwerker/superwerker/milestone/1) and working towards [1.1](https://github.com/superwerker/superwerker/milestone/2).
 
 ## Quick install
 
@@ -16,16 +14,16 @@ You can install the current `main` branch via CloudFormation in the following AW
 
 | Installation  | Next steps  |
 |---|---|
-| [🇪🇺 eu-west-1](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-west-1#dashboards:name=superwerker) |
-| [🇪🇺 eu-central-1](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-central-1#dashboards:name=superwerker) |
-| [🇪🇺 eu-north-1](https://console.aws.amazon.com/cloudformation/home?region=eu-north-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-north-1#dashboards:name=superwerker) |
-| [🇬🇧 eu-west-2](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-west-2dashboards:name=superwerker) |
-| [🇨🇦 ca-central-1](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ca-central-1#dashboards:name=superwerker) |
-| [🇺🇸 us-east-1](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=superwerker) |
-| [🇺🇸 us-east-2](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-east-2#dashboards:name=superwerker) |
-| [🇺🇸 us-west-2](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-west-2#dashboards:name=superwerker) |
-| [🇸🇬 ap-southeast-1](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ap-southeast-1#dashboards:name=superwerker) |
-| [🇦🇺 ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_TemplateUrlPrefix=https://superwerker-deployment.s3.amazonaws.com/main) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ap-southeast-2#dashboards:name=superwerker) |
+| [🇪🇺 eu-west-1](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-west-1#dashboards:name=superwerker) |
+| [🇪🇺 eu-central-1](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-central-1#dashboards:name=superwerker) |
+| [🇪🇺 eu-north-1](https://console.aws.amazon.com/cloudformation/home?region=eu-north-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-north-1#dashboards:name=superwerker) |
+| [🇬🇧 eu-west-2](https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=eu-west-2dashboards:name=superwerker) |
+| [🇨🇦 ca-central-1](https://console.aws.amazon.com/cloudformation/home?region=ca-central-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ca-central-1#dashboards:name=superwerker) |
+| [🇺🇸 us-east-1](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=superwerker) |
+| [🇺🇸 us-east-2](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-east-2#dashboards:name=superwerker) |
+| [🇺🇸 us-west-2](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=us-west-2#dashboards:name=superwerker) |
+| [🇸🇬 ap-southeast-1](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ap-southeast-1#dashboards:name=superwerker) |
+| [🇦🇺 ap-southeast-2](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/quickcreate?stackName=superwerker&templateURL=https://superwerker-deployment.s3.amazonaws.com/main/templates/superwerker.template.yaml&param_QSS3BucketName=superwerker-deployment&param_QSS3BucketRegion=eu-west-1&param_QSS3KeyPrefix=main/) | [Documentation / next steps](https://console.aws.amazon.com/cloudwatch/home?region=ap-southeast-2#dashboards:name=superwerker) |
 
 ## What's included in the setup?
 
@@ -126,10 +124,6 @@ It’s complementary. You can consider superwerker a “well set-up”. At the s
 
 No, superwerker runs exclusively in your AWS account and does not communicate with the internet.
 
-### Is there a roadmap?
-
-Yes, a roadmap is available on GitHub and you can submit and vote on proposals. To do so, you can open a new GitHub issue or one-up existing feature requests.
-
 ### What happens if AWS offers features of superwerker itself?
 
 superwerker always aims to build on AWS services and features. If a superwerker feature becomes obsolete because AWS releases it as a service or feature itself, we will adapt superwerker.
@@ -172,5 +166,5 @@ We use CloudWatch Events where possible in order to decouple architecture. We ac
 
 ## Thanks
 
-- Ian McKay and his AWS Account Controller
+- [Ian McKay and his AWS Account Controller](https://github.com/iann0036/aws-account-controller)
 - [Flo Motlik / theserverlessway.com AWS Baseline](https://github.com/theserverlessway/aws-baseline)
