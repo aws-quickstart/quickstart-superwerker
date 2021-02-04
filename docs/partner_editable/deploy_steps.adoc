@@ -31,7 +31,7 @@ TIP: In the following steps, after you deploy the stack, refer to the documentat
 
 [cols="3,1"]
 |===
-^|http://qs_launch_permalink[Deploy {partner-product-short-name}^]
+^|https://fwd.aws/XeP9A[Deploy {partner-product-short-name}^]
 ^|http://qs_template_permalink[View template^]
 
 |===
