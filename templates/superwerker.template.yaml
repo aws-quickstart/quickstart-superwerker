@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-Description: Automated Best-Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
+Description: Automated Best Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for launch superwerker"
+    EntrypointName: "Launch superwerker"
     Order: "1"
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -50,7 +50,6 @@ Metadata:
         default: Quick Start S3 key prefix
       Subdomain:
         default: Subdomain for automated DNS configuration
-
 Parameters:
   Domain:
     Type: String
