@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: Automated Best Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
 Metadata:
   QuickStartDocumentation:
-    EntrypointName: "Parameters for launching superwerker"
+    EntrypointName: "Parameters for launching Superwerker"
     Order: "1"
   AWS::CloudFormation::Interface:
     ParameterGroups:
