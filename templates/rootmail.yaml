@@ -771,4 +771,4 @@ Resources:
                   - !GetAtt StackSetExecutionRole.Arn
 
 Metadata:
-  SuperwerkerVersion: 0.0.0-DEVELOPMENT
+  SuperwerkerVersion: 0.12.5

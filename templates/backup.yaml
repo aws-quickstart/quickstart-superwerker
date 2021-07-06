@@ -1064,4 +1064,4 @@ Resources:
                     p['Id'] == policy_id]
 
 Metadata:
-  SuperwerkerVersion: 0.0.0-DEVELOPMENT
+  SuperwerkerVersion: 0.12.5
