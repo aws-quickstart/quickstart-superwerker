@@ -443,7 +443,7 @@ Resources:
                       Service: lambda.amazonaws.com
                     Action: sts:AssumeRole
               ManagedPolicyArns:
-                - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+                - arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
               Policies:
                 - PolicyName: AllowSesAccess
                   PolicyDocument:
@@ -570,7 +570,7 @@ Resources:
                       Service: lambda.amazonaws.com
                     Action: sts:AssumeRole
               ManagedPolicyArns:
-                - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+                - arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
               Policies:
                 - PolicyName: OpsSantaFunctionRolePolicy
                   PolicyDocument:
@@ -772,4 +772,4 @@ Resources:
                   - !GetAtt StackSetExecutionRole.Arn
 
 Metadata:
-  SuperwerkerVersion: 0.12.6
+  SuperwerkerVersion: 0.13.0

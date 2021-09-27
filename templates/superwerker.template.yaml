@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Description: Automated Best Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
 Metadata:
-  SuperwerkerVersion: 0.12.6
+  SuperwerkerVersion: 0.13.0
   QuickStartDocumentation:
     EntrypointName: "Parameters for launching Superwerker"
     Order: "1"
