@@ -28,7 +28,7 @@ Resources:
               Resource: !Sub arn:${AWS::Partition}:cloudwatch::${AWS::AccountId}:dashboard/superwerker
             - Effect: Allow
               Action: cloudwatch:DescribeAlarms
-              Resource: '*'
+              Resource: !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:superwerker-RootMailReady
       Environment:
         Variables:
           SUPERWERKER_DOMAIN: !Ref SuperwerkerDomain
@@ -128,4 +128,8 @@ Resources:
       Timeout: 60
 
 Metadata:
-  SuperwerkerVersion: 0.13.1
+  SuperwerkerVersion: 0.13.2
+  cfn-lint:
+    config:
+      ignore_checks:
+        - E9007

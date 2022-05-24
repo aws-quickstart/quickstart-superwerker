@@ -313,4 +313,9 @@ Resources:
             raise Exception
 
 Metadata:
-  SuperwerkerVersion: 0.13.1
+  SuperwerkerVersion: 0.13.2
+  cfn-lint:
+    config:
+      ignore_checks:
+        - E9007
+        - EIAMPolicyWildcardResource
