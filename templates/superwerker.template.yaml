@@ -1,335 +1,498 @@
-AWSTemplateFormatVersion: 2010-09-09
-Transform: AWS::Serverless-2016-10-31
 Description: Automated Best Practices for AWS Cloud setups - https://superwerker.cloud (qs-1rhrhoi4t)
 Metadata:
-  cfn-lint:
-    config:
-      ignore_checks:
-        - E9007
-  SuperwerkerVersion: 0.13.2
+  SuperwerkerVersion: '0.15.0'
   QuickStartDocumentation:
-    EntrypointName: "Parameters for launching Superwerker"
-    Order: "1"
-  AWS::CloudFormation::Interface:
-    ParameterGroups:
-    - Label:
-        default: Features
-      Parameters:
-      - IncludeBudget
-      - IncludeGuardDuty
-      - IncludeSecurityHub
-      - IncludeBackup
-      - IncludeServiceControlPolicies
-    - Label:
-        default: Domain configuration
-      Parameters:
-      - Domain
-      - Subdomain
-    - Label:
-        default: Notifications
-      Parameters:
-      - NotificationsMail
-    - Label:
-        default: AWS Quick Start configuration
-      Parameters:
-      - QSS3BucketName
-      - QSS3KeyPrefix
-      - QSS3BucketRegion
-    ParameterLabels:
-      Domain:
-        default: Domain for automated DNS configuration
-      Subdomain:
-        default: Sub domain for automated DNS configuration
-      NotificationsMail:
-        default: Mail address used for important notification regarding your AWS account (leave empty for no notifications)
-      IncludeBudget:
-        default: Include AWS Budgets alarm
-      IncludeGuardDuty:
-        default: Include Amazon GuardDuty
-      IncludeSecurityHub:
-        default: Include AWS Security Hub
-      IncludeBackup:
-        default: Include Automated Backups
-      IncludeServiceControlPolicies:
-        default: Include service control policies
-      QSS3BucketName:
-        default: Quick Start S3 bucket name
-      QSS3BucketRegion:
-        default: Quick Start S3 bucket Region
-      QSS3KeyPrefix:
-        default: Quick Start S3 key prefix
+    EntrypointName: Parameters for launching Superwerker
+    Order: '1'
 Parameters:
+  QSS3BucketName:
+    Type: String
+    Default: ''
+  QSS3BucketRegion:
+    Type: String
+    Default: ''
+  QSS3KeyPrefix:
+    Type: String
+    Default: ''
   Domain:
     Type: String
-    Description: Domain used for root mail feature
+    Description: Domain used for root mail feature. Please see https://github.com/superwerker/superwerker/blob/main/README.md#technical-faq for more information
   Subdomain:
     Type: String
     Default: aws
-    Description: Subdomain used for root mail feature
+    Description: Subdomain used for root mail feature. Please see https://github.com/superwerker/superwerker/blob/main/README.md#technical-faq for more information
   NotificationsMail:
     Type: String
-    Description: Mail address used for notifications
-    Default: ""
-    AllowedPattern: "(^$|^.*@.*\\..*$)"
+    Default: ''
+    AllowedPattern: (^$|^.*@.*\..*$)
+    Description: Mail address used for notifications. Please see https://github.com/superwerker/superwerker/blob/main/README.md#technical-faq for more information
   IncludeBudget:
+    Type: String
+    Default: 'Yes'
     AllowedValues:
       - 'Yes'
       - 'No'
-    Default: 'Yes'
-    Type: String
     Description: Enable AWS Budgets alarm for monthly AWS spending
   IncludeGuardDuty:
+    Type: String
+    Default: 'Yes'
     AllowedValues:
       - 'Yes'
       - 'No'
-    Default: 'Yes'
-    Type: String
     Description: Enable Amazon GuardDuty
   IncludeSecurityHub:
+    Type: String
+    Default: 'Yes'
     AllowedValues:
       - 'Yes'
       - 'No'
-    Default: 'Yes'
-    Type: String
     Description: Enable AWS Security Hub
   IncludeBackup:
+    Type: String
+    Default: 'Yes'
     AllowedValues:
       - 'Yes'
       - 'No'
-    Default: 'Yes'
-    Type: String
     Description: Enable automated backups
   IncludeServiceControlPolicies:
+    Type: String
+    Default: 'Yes'
     AllowedValues:
       - 'Yes'
       - 'No'
-    Default: 'Yes'
-    Type: String
     Description: Enable service control policies in AWS organizations
-  QSS3BucketName:
-    AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
-    ConstraintDescription: The Quick Start bucket name can include numbers, lowercase
-      letters, uppercase letters, and hyphens (-). It cannot start or end with a
-      hyphen (-).
-    Default: aws-quickstart
-    Description: Name of the S3 bucket for your copy of the Quick Start assets.
-      Keep the default name unless you are customizing the template.
-      Changing the name updates code references to point to a new Quick
-      Start location. This name can include numbers, lowercase letters,
-      uppercase letters, and hyphens, but do not start or end with a hyphen (-).
-      See https://aws-quickstart.github.io/option1.html.
-    Type: String
-  QSS3BucketRegion:
-    Default: 'us-east-1'
-    Description: 'AWS Region where the Quick Start S3 bucket (QSS3BucketName) is
-    hosted. Keep the default Region unless you are customizing the template.
-    Changing this Region updates code references to point to a new Quick Start location.
-    When using your own bucket, specify the Region.
-    See https://aws-quickstart.github.io/option1.html.'
-    Type: String
-  QSS3KeyPrefix:
-    AllowedPattern: '^([0-9a-zA-Z-.:]+/)*$'
-    ConstraintDescription: The Quick Start S3 key prefix can include numbers, lowercase letters,
-      uppercase letters, hyphens (-), colon (:), and forward slashes (/).
-    Default: quickstart-superwerker/
-    Description: S3 key prefix that is used to simulate a directory for your copy of the
-      Quick Start assets. Keep the default prefix unless you are customizing
-      the template. Changing this prefix updates code references to point to
-      a new Quick Start location. This prefix can include numbers, lowercase
-      letters, uppercase letters, hyphens (-), colon (:), and forward slashes (/).
-      See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html
-      and https://aws-quickstart.github.io/option1.html.
-    Type: String
-
-Conditions:
-  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
-  IncludeNotifications: !Not [!Equals [ !Ref NotificationsMail, '' ]]
-  IncludeBudget: !Equals [ !Ref IncludeBudget, 'Yes' ]
-  IncludeGuardDuty: !Equals [ !Ref IncludeGuardDuty, 'Yes' ]
-  IncludeSecurityHub: !Equals [ !Ref IncludeSecurityHub, 'Yes' ]
-  IncludeBackup: !Equals [ !Ref IncludeBackup, 'Yes' ]
-  IncludeServiceControlPolicies: !Equals [ !Ref IncludeServiceControlPolicies, 'Yes' ]
-
 Resources:
-  Budget:
-    Condition: IncludeBudget
-    Type: AWS::CloudFormation::Stack
+  GeneratedAuditAWSAccountEmail426CA952:
+    Type: Custom::GenerateEmailAddress
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/budget.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-
-  ControlTower:
-    Type: AWS::CloudFormation::Stack
+      ServiceToken: !GetAtt 'superwerkergenerateemailaddressproviderframeworkonEvent3AC8AF01.Arn'
+      Domain: !Join
+        - ''
+        - - !Ref 'Subdomain'
+          - .
+          - !Ref 'Domain'
+      Name: Audit
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/GeneratedAuditAWSAccountEmail/Resource/Default
+  superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleC486FCF1:
+    Type: AWS::IAM::Role
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/control-tower.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-      Parameters:
-        AuditAWSAccountEmail: !GetAtt GeneratedAuditAWSAccountEmail.email
-        LogArchiveAWSAccountEmail: !GetAtt GeneratedLogArchiveAWSAccountEmail.email
-
-  GeneratedAuditAWSAccountEmail:
-    Type: AWS::CloudFormation::CustomResource
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+        - !Join
+          - ''
+          - - 'arn:'
+            - !Ref 'AWS::Partition'
+            - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-on-event/ServiceRole/Resource
+  superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleDefaultPolicyCA8C0038:
+    Type: AWS::IAM::Policy
     Properties:
-      ServiceToken: !GetAtt GenerateLogAndOrAuditEmailCustomResource.Arn
-
-  GeneratedLogArchiveAWSAccountEmail:
-    Type: AWS::CloudFormation::CustomResource
+      PolicyDocument:
+        Statement:
+          - Action: organizations:ListAccounts
+            Effect: Allow
+            Resource: '*'
+        Version: '2012-10-17'
+      PolicyName: superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleDefaultPolicyCA8C0038
+      Roles:
+        - !Ref 'superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleC486FCF1'
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-on-event/ServiceRole/DefaultPolicy/Resource
+  superwerkergenerateemailaddressprovidergenerateemailaddressoneventE83D0932:
+    Type: AWS::Lambda::Function
     Properties:
-      ServiceToken: !GetAtt GenerateLogAndOrAuditEmailCustomResource.Arn
-
-  GenerateLogAndOrAuditEmailCustomResource:
-    Type: AWS::Serverless::Function
-    Properties:
-      Timeout: 200
+      Code:
+        S3Bucket: !Sub 'superwerker-assets-${AWS::Region}'
+        S3Key: '0.15.0/42fec8cabe64f38c1f5223e088b90721a9282c15a96cf5ed8ad16e4b45c9bb6c.zip'
+      Role: !GetAtt 'superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleC486FCF1.Arn'
+      Environment:
+        Variables:
+          AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
       Handler: index.handler
-      Runtime: python3.7
-      Policies:
-        - LambdaInvokePolicy:
-            FunctionName: !GetAtt RootMail.Outputs.EmailGeneratorFunction
-      InlineCode: !Sub |
-        import boto3
-        import cfnresponse
-        import json
-
-        lambda_client = boto3.client("lambda")
-
-        CREATE = 'Create'
-        DELETE = 'Delete'
-        UPDATE = 'Update'
-
-        def exception_handling(function):
-            def catch(event, context):
-                try:
-                    function(event, context)
-                except Exception as e:
-                    print(e)
-                    print(event)
-                    cfnresponse.send(event, context, cfnresponse.FAILED, {})
-
-            return catch
-
-        @exception_handling
-        def handler(event, context):
-            RequestType = event["RequestType"]
-            Properties = event["ResourceProperties"]
-            LogicalResourceId = event["LogicalResourceId"]
-            PhysicalResourceId = event.get("PhysicalResourceId")
-
-            print('RequestType: {}'.format(RequestType))
-            print('PhysicalResourceId: {}'.format(PhysicalResourceId))
-            print('LogicalResourceId: {}'.format(LogicalResourceId))
-
-            id = PhysicalResourceId
-
-            data = {}
-
-            if RequestType == CREATE or RequestType == UPDATE:
-              lambda_response = lambda_client.invoke(
-                FunctionName='${RootMail.Outputs.EmailGeneratorFunction}'
-              )
-
-              response_json = json.loads(lambda_response['Payload'].read().decode('utf-8'))
-              data['email'] = response_json['email']
-
-            cfnresponse.send(event, context, cfnresponse.SUCCESS, data, id)
-
-  GuardDuty:
-    Condition: IncludeGuardDuty
-    Type: AWS::CloudFormation::Stack
+      Runtime: nodejs14.x
+    DependsOn:
+      - superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleDefaultPolicyCA8C0038
+      - superwerkergenerateemailaddressprovidergenerateemailaddressoneventServiceRoleC486FCF1
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-on-event/Resource
+      aws:asset:path: asset.42fec8cabe64f38c1f5223e088b90721a9282c15a96cf5ed8ad16e4b45c9bb6c
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  superwerkergenerateemailaddressproviderframeworkonEventServiceRole116C3F83:
+    Type: AWS::IAM::Role
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/guardduty.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-
-  LivingDocumentation:
-    Type: AWS::CloudFormation::Stack
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: '2012-10-17'
+      ManagedPolicyArns:
+        - !Join
+          - ''
+          - - 'arn:'
+            - !Ref 'AWS::Partition'
+            - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-provider/framework-onEvent/ServiceRole/Resource
+  superwerkergenerateemailaddressproviderframeworkonEventServiceRoleDefaultPolicy38FE703D:
+    Type: AWS::IAM::Policy
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/living-documentation.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-      Parameters:
-        SuperwerkerDomain: !Sub '${Subdomain}.${Domain}'
-
+      PolicyDocument:
+        Statement:
+          - Action: lambda:InvokeFunction
+            Effect: Allow
+            Resource:
+              - !GetAtt 'superwerkergenerateemailaddressprovidergenerateemailaddressoneventE83D0932.Arn'
+              - !Join
+                - ''
+                - - !GetAtt 'superwerkergenerateemailaddressprovidergenerateemailaddressoneventE83D0932.Arn'
+                  - :*
+        Version: '2012-10-17'
+      PolicyName: superwerkergenerateemailaddressproviderframeworkonEventServiceRoleDefaultPolicy38FE703D
+      Roles:
+        - !Ref 'superwerkergenerateemailaddressproviderframeworkonEventServiceRole116C3F83'
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource
+  superwerkergenerateemailaddressproviderframeworkonEvent3AC8AF01:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: !Sub 'superwerker-assets-${AWS::Region}'
+        S3Key: '0.15.0/2157f4ab8972014e220d70707296b292b3b7301f163f7cd641ccda0ee663530f.zip'
+      Role: !GetAtt 'superwerkergenerateemailaddressproviderframeworkonEventServiceRole116C3F83.Arn'
+      Description: AWS CDK resource provider framework - onEvent (SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-provider)
+      Environment:
+        Variables:
+          USER_ON_EVENT_FUNCTION_ARN: !GetAtt 'superwerkergenerateemailaddressprovidergenerateemailaddressoneventE83D0932.Arn'
+      Handler: framework.onEvent
+      Runtime: nodejs14.x
+      Timeout: 900
+    DependsOn:
+      - superwerkergenerateemailaddressproviderframeworkonEventServiceRoleDefaultPolicy38FE703D
+      - superwerkergenerateemailaddressproviderframeworkonEventServiceRole116C3F83
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/superwerker.generate-email-address-provider/generate-email-address-provider/framework-onEvent/Resource
+      aws:asset:path: asset.2157f4ab8972014e220d70707296b292b3b7301f163f7cd641ccda0ee663530f
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  GeneratedLogArchiveAWSAccountEmail92CF255B:
+    Type: Custom::GenerateEmailAddress
+    Properties:
+      ServiceToken: !GetAtt 'superwerkergenerateemailaddressproviderframeworkonEvent3AC8AF01.Arn'
+      Domain: !Join
+        - ''
+        - - !Ref 'Subdomain'
+          - .
+          - !Ref 'Domain'
+      Name: Log Archive
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/GeneratedLogArchiveAWSAccountEmail/Resource/Default
   RootMail:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/rootmail.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/399b019bfbda669f436273fbe4ac8fb66a80160133f51da692ca55f6de6d0042.json
       Parameters:
-        Domain: !Ref Domain
-        Subdomain: !Ref Subdomain
-
-  SecurityHub:
-    Condition: IncludeSecurityHub
+        Domain: !Ref 'Domain'
+        Subdomain: !Ref 'Subdomain'
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/RootMail.NestedStack/RootMail.NestedStackResource
+      aws:asset:path: SuperwerkerStackRootMail79641A79.nested.template.json
+      aws:asset:property: TemplateURL
+  ControlTower:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/security-hub.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/af24eb9c16fe2a0804334630d27afb0588a6f0c04d13aa6f0e8e253d8348975a.json
+      Parameters:
+        AuditAWSAccountEmail: !GetAtt 'GeneratedAuditAWSAccountEmail426CA952.Email'
+        LogArchiveAWSAccountEmail: !GetAtt 'GeneratedLogArchiveAWSAccountEmail92CF255B.Email'
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/ControlTower.NestedStack/ControlTower.NestedStackResource
+      aws:asset:path: SuperwerkerStackControlTowerA5957978.nested.template.json
+      aws:asset:property: TemplateURL
+  LivingDocumentation:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/1bedaa55f1c84cc9d700606032a034b54b66bb8570238d7dfee8837475457644.json
+      Parameters:
+        SuperwerkerDomain: !Join
+          - ''
+          - - !Ref 'Subdomain'
+            - .
+            - !Ref 'Domain'
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/LivingDocumentation.NestedStack/LivingDocumentation.NestedStackResource
+      aws:asset:path: SuperwerkerStackLivingDocumentation7D832A3F.nested.template.json
+      aws:asset:property: TemplateURL
   Backup:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/3205efcddb004693d8caa05ecd262a3e4da3e913ec0ec1be1f26e67f8af6671c.json
+    DependsOn:
+      - ControlTower
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/Backup.NestedStack/Backup.NestedStackResource
+      aws:asset:path: SuperwerkerStackBackup2EDC043E.nested.template.json
+      aws:asset:property: TemplateURL
     Condition: IncludeBackup
+  Budget:
     Type: AWS::CloudFormation::Stack
-    DependsOn: ControlTower
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/backup.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/332e4889787559f58893a9ae8152c8e162842a4ce92416c9e36099a750cdb166.json
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/Budget.NestedStack/Budget.NestedStackResource
+      aws:asset:path: SuperwerkerStackBudget4EA13C09.nested.template.json
+      aws:asset:property: TemplateURL
+    Condition: IncludeBudget
+  GuardDuty:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/59a8f6f5c83e1f8486c9c733f4c368f722d6aae4dfe91947c059d5d9af24be6b.json
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/GuardDuty.NestedStack/GuardDuty.NestedStackResource
+      aws:asset:path: SuperwerkerStackGuardDutyF56F7940.nested.template.json
+      aws:asset:property: TemplateURL
+    Condition: IncludeGuardDuty
+  Notifications:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/1ab342ce26220ab3f325627f1681899ec5f528041c569ac5e8737a4fdab2ecc6.json
+      Parameters:
+        NotificationsMail: !Ref 'NotificationsMail'
+    DependsOn:
+      - RootMail
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/Notifications.NestedStack/Notifications.NestedStackResource
+      aws:asset:path: SuperwerkerStackNotifications153068C2.nested.template.json
+      aws:asset:property: TemplateURL
+    Condition: IncludeNotifications
+  SecurityHub:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/b746d1b3573f5de0c05787bcacfba2f0c7f434954fda58d4d935b2f3c4238799.json
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/SecurityHub.NestedStack/SecurityHub.NestedStackResource
+      aws:asset:path: SuperwerkerStackSecurityHubF52922D9.nested.template.json
+      aws:asset:property: TemplateURL
+    Condition: IncludeSecurityHub
   ServiceControlPolicies:
-    Condition: IncludeServiceControlPolicies
     Type: AWS::CloudFormation::Stack
-    DependsOn: ControlTower
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/service-control-policies.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
+      TemplateURL: !Join
+        - ''
+        - - https://s3.
+          - !Ref 'AWS::Region'
+          - .
+          - !Ref 'AWS::URLSuffix'
+          - /
+          - !Sub 'superwerker-assets-${AWS::Region}'
+          - /0.15.0/356b73d985cb571592e5ba4afc88630f718ed31950af0bf90e2958cdff82f36a.json
       Parameters:
         IncludeSecurityHub: !If
           - IncludeSecurityHub
-          - true
-          - false
+          - 'true'
+          - 'false'
         IncludeBackup: !If
           - IncludeBackup
-          - true
-          - false
-
-  Notifications:
-    Condition: IncludeNotifications
-    Type: AWS::CloudFormation::Stack
-    DependsOn: RootMail
+          - 'true'
+          - 'false'
+    DependsOn:
+      - ControlTower
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/ServiceControlPolicies.NestedStack/ServiceControlPolicies.NestedStackResource
+      aws:asset:path: SuperwerkerStackServiceControlPolicies29C013D1.nested.template.json
+      aws:asset:property: TemplateURL
+    Condition: IncludeServiceControlPolicies
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
     Properties:
-      TemplateURL:
-        Fn::Sub:
-          - 'https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/notifications.yaml'
-          - S3Region: !If [UsingDefaultBucket, !Sub '${AWS::Region}', !Ref QSS3BucketRegion]
-            S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-      Parameters:
-        NotificationsMail: !Ref NotificationsMail
-
-Outputs:
-  RootMailDelegationTarget:
-    Description: Name servers for the hosted zone delegation
-    Value: !GetAtt RootMail.Outputs.DelegationTarget
-  CloudWatchDashboard:
-    Description: See the CloudWatch superwerker dashboard for post-deployment steps
-    Value: https://console.aws.amazon.com/cloudwatch/home#dashboards:name=superwerker
+      Analytics: >-
+        v2:deflate64:H4sIAAAAAAAA/z1QQWrEMAx8S++O2rSw0GM30OMS0gcEra1dlMQ2WPaWEvL32k6b04wQM5rRK5xaeHnCb2m0mZuFr7B+RdSz6m6ux4CWIgXVJYneDiQ+BU1ld/AsHdcF7dXg6LyhSeBS4TM5Hdk7xWhhHfyy6wr2fmH9U09Util5G1GEosBHgTzDOemZ4hmF1G4PaxYcrv9k29SRpWpz/Du7u9I18xj+lgJ98A82pc3NHR077wxXH1XSwyTPj/YE7Xv+yiTMTUgusiUYdvwFFlfcqDEBAAA=
+    Metadata:
+      aws:cdk:path: SuperwerkerStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Conditions:
+  IncludeBackup: !Equals
+    - !Ref 'IncludeBackup'
+    - 'Yes'
+  IncludeBudget: !Equals
+    - !Ref 'IncludeBudget'
+    - 'Yes'
+  IncludeGuardDuty: !Equals
+    - !Ref 'IncludeGuardDuty'
+    - 'Yes'
+  IncludeNotifications: !Not
+    - !Equals
+      - !Ref 'NotificationsMail'
+      - ''
+  IncludeSecurityHub: !Equals
+    - !Ref 'IncludeSecurityHub'
+    - 'Yes'
+  IncludeServiceControlPolicies: !Equals
+    - !Ref 'IncludeServiceControlPolicies'
+    - 'Yes'
+  CDKMetadataAvailable: !Or
+    - !Or
+      - !Equals
+        - !Ref 'AWS::Region'
+        - af-south-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-east-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-northeast-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-northeast-2
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-south-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-southeast-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ap-southeast-2
+      - !Equals
+        - !Ref 'AWS::Region'
+        - ca-central-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - cn-north-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - cn-northwest-1
+    - !Or
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-central-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-north-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-south-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-west-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-west-2
+      - !Equals
+        - !Ref 'AWS::Region'
+        - eu-west-3
+      - !Equals
+        - !Ref 'AWS::Region'
+        - me-south-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - sa-east-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - us-east-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - us-east-2
+    - !Or
+      - !Equals
+        - !Ref 'AWS::Region'
+        - us-west-1
+      - !Equals
+        - !Ref 'AWS::Region'
+        - us-west-2
