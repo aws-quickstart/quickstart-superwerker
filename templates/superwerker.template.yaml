@@ -5,15 +5,6 @@ Metadata:
     EntrypointName: Parameters for launching Superwerker
     Order: '1'
 Parameters:
-  QSS3BucketName:
-    Type: String
-    Default: ''
-  QSS3BucketRegion:
-    Type: String
-    Default: ''
-  QSS3KeyPrefix:
-    Type: String
-    Default: ''
   Domain:
     Type: String
     Description: Domain used for root mail feature. Please see https://github.com/superwerker/superwerker/blob/main/README.md#technical-faq for more information
