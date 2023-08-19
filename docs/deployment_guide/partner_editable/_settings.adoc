@@ -1,16 +1,16 @@
-:partner-solution-project-name: partner-solution-repo-name
+:partner-solution-project-name: quickstart-superwerker
 :partner-solution-github-org: aws-quickstart
-:partner-product-name: Full Product Name
-:partner-product-short-name: Product Name
-:partner-company-name: Example Company Name, Ltd.
-:doc-month: January
+:partner-product-name: superwerker
+:partner-product-short-name: superwerker
+:partner-company-name: kreuzwerker GmbH and superluminar GmbH
+:doc-month: August
 :doc-year: 2023
-:partner-contributors: John Smith, {partner-company-name}
+:partner-contributors: Joern Barthel, Sönke Ruempler, and Sebastian Müller, {partner-company-name}
 // :other-contributors: Akua Mansa, Trek10
-:aws-contributors: Janine Singh, AWS IoT Partner team
-:aws-ia-contributors: Toni Jones, AWS Integration & Automation team
-:deployment_time: 15 minutes
-:default_deployment_region: us-east-1
+//:aws-contributors: Janine Singh, AWS IoT Partner team
+:aws-ia-contributors: Dave May and Troy Ameigh, AWS Integration & Automation team
+:deployment_time: 1.5 hours
+:default_deployment_region: eu-central-1
 // :private_repo:
 
 
