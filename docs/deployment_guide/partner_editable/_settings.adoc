@@ -1,0 +1,17 @@
+:partner-solution-project-name: quickstart-superwerker
+:partner-solution-github-org: aws-quickstart
+:partner-product-name: superwerker
+:partner-product-short-name: superwerker
+:partner-company-name: kreuzwerker GmbH and superluminar GmbH
+:doc-month: August
+:doc-year: 2023
+:partner-contributors: Joern Barthel, Sönke Ruempler, and Sebastian Müller, {partner-company-name}
+// :other-contributors: Akua Mansa, Trek10
+//:aws-contributors: Janine Singh, AWS IoT Partner team
+:aws-ia-contributors: Dave May and Troy Ameigh, AWS Integration & Automation team
+:deployment_time: 1.5 hours
+:default_deployment_region: eu-central-1
+// :private_repo:
+
+
+// For instructions on creating this deployment guide, refer to "Build your AWS Partner Solution documentation" (https://aws-ia-us-west-2.s3.us-west-2.amazonaws.com/docs/content/index.html#/).

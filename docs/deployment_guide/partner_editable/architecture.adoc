@@ -1,13 +1,15 @@
-Deploying this Quick Start builds the following {partner-product-short-name} environment in the
+:xrefstyle: short
+
+Deploying this Partner Solution with default parameters builds the following {partner-product-short-name} environment in the
 AWS Cloud.
 
-// Replace this example diagram with your own. Send us your source PowerPoint file. Be sure to follow our guidelines here : http://(we should include these points on our contributors giude)
-:xrefstyle: short
-[#architecture1]
-.Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/superwerker-architecture-diagram.png[Architecture,width=100%,height=100%]
+// Replace this example diagram with your own. Follow our wiki guidelines: https://w.amazon.com/bin/view/AWS_Quick_Starts/Process_for_PSAs/#HPrepareyourarchitecturediagram. Upload your source PowerPoint file to the GitHub {deployment name}/docs/images/ directory in its repository.
 
-As shown in <<architecture1>>, the Quick Start automates the configuration of the following AWS services and features:
+[#architecture1]
+.Partner Solution architecture for {partner-product-short-name} on AWS
+image::../docs/deployment_guide/images/superwerker-architecture-diagram.png[Architecture,width=100%,height=100%]
+
+As shown in <<architecture1>>, the Partner Solution automates the configuration of the following AWS services and features:
 
 * AWS Control Tower for setting up and governing a secure, multi-account AWS environment. 
 * AWS Single Sign-On (AWS SSO) for managing access to multiple AWS accounts and business applications with a single login. 
@@ -23,5 +25,5 @@ As shown in <<architecture1>>, the Quick Start automates the configuration of th
 
 The following image provides additional details about the AWS architecture that is deployed using {partner-product-short-name}.
 [#architecture2]
-.Quick Start architecture for {partner-product-short-name} on AWS
-image::../images/partnerprovided_architecture-overview.png[Architecture,width=100%,height=100%]
+.Partner Solution architecture for {partner-product-short-name} on AWS
+image::../docs/deployment_guide/images/partnerprovided_architecture-overview.png[Architecture,width=100%,height=100%]

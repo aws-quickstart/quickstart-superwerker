@@ -1,0 +1,5 @@
+// Edit this placeholder text as necessary to describe the deployment options.
+
+This Partner Solution provides the following deployment option:
+
+* http://qs_launch_permalink[Deploy {partner-product-short-name}^]
