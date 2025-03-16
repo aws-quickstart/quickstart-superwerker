@@ -128,7 +128,7 @@ Resources:
       Timeout: 60
 
 Metadata:
-  SuperwerkerVersion: 0.13.2
+  SuperwerkerVersion: 0.14.0
   cfn-lint:
     config:
       ignore_checks:

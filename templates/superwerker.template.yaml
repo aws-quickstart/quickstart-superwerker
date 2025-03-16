@@ -6,7 +6,7 @@ Metadata:
     config:
       ignore_checks:
         - E9007
-  SuperwerkerVersion: 0.13.2
+  SuperwerkerVersion: 0.14.0
   QuickStartDocumentation:
     EntrypointName: "Parameters for launching Superwerker"
     Order: "1"
